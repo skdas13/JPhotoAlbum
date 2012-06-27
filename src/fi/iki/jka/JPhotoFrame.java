@@ -52,6 +52,8 @@ import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import actions.MessageDialogShow;
+import actions.SlideShowHandler;
 import com.drew.metadata.Tag;
 import com.drew.metadata.exif.ExifDirectory;
 
@@ -546,7 +548,7 @@ public class JPhotoFrame extends JFrame
         else if (cmd.equals(JPhotoMenu.A_WATERMARK)) {
             String def = photos.getWatermark();
             if (def.equals(""))
-                def = "© "+Calendar.getInstance().get(Calendar.YEAR)+" ";
+                def = "ï¿½ "+Calendar.getInstance().get(Calendar.YEAR)+" ";
             String res = JOptionPane.showInputDialog(this, "Watermark",
                                                      def);
             if (res!=null)
@@ -580,14 +582,7 @@ public class JPhotoFrame extends JFrame
             showExif();
         }
         else if (cmd.equals(JPhotoMenu.A_SLIDESHOW)) {
-            if (photos.getSize()>0) {
-                JPhotoShow show = new JPhotoShow(photos, 5000, list);
-                show.setVisible(true);
-            }
-            else
-                JOptionPane.showMessageDialog(this, "No photos to show!",
-                                              APP_NAME, JOptionPane.ERROR_MESSAGE);
-                
+            new SlideShowHandler(photos, new JPhotoShow(photos, 5000, list), new MessageDialogShow(this, APP_NAME)).handle();
         }
         else if (cmd.equals(JPhotoMenu.A_HELP)) {
             displayHelp();
@@ -596,7 +591,7 @@ public class JPhotoFrame extends JFrame
             JOptionPane.showMessageDialog(this, APP_NAME+" v1.4.5 - Organize and Publish Your Digital Photos.\n"+
                                           "Copyright 2005-2007 Jari Karjala [www.jpkware.com],\n"
                                           +"Tarja Hakala [www.hakalat.net]"
-                                          +" and Zbynek Mužík [zbynek.muzik@email.cz]\n"
+                                          +" and Zbynek Muï¿½ï¿½k [zbynek.muzik@email.cz]\n"
                                           +"This is free software, licenced under the GNU General Public License.",
                                           JPhotoMenu.A_ABOUT, JOptionPane.INFORMATION_MESSAGE);
         }
@@ -625,6 +620,8 @@ public class JPhotoFrame extends JFrame
         
         setTitle();
     }
+
+
 
     public void insertPhotos(String files[]) {
         if (files!=null) {

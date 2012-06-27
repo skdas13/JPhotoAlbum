@@ -6,6 +6,8 @@
  */
 package fi.iki.jka;
 
+import actions.PhotoShow;
+
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
@@ -21,7 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.KeyStroke;
 
-public class JPhotoShow extends JFrame {
+public class JPhotoShow extends JFrame implements PhotoShow {
     JPhotoCollection photos = null;
     JPhotoPanel panel = null;
     JList parentList = null;
@@ -90,7 +92,11 @@ public class JPhotoShow extends JFrame {
         im.put(key, code);
         am.put(code, new ShowAction(code));
     }
-    
+
+    public void go() {
+        setVisible(true);
+    }
+
     /**
      * keyboard actions
      */
